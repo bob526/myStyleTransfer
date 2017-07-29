@@ -3,6 +3,7 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+$PHP_LIMIT_SIZE = 10000000
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -20,7 +21,7 @@ if (file_exists($target_file)) {
     $uploadOk = 0;
 }
 // Check file size  10MB
-if ($_FILES["fileToUpload"]["size"] > 10000000) {
+if ($_FILES["fileToUpload"]["size"] > $PHP_LIMIT_SIZE) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
