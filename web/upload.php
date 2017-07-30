@@ -3,8 +3,9 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-$PHP_LIMIT_SIZE = 10000000;
+$PHP_LIMIT_SIZE = 30000000;
 // Check if image file is a actual image or fake image
+/*
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -15,12 +16,13 @@ if(isset($_POST["submit"])) {
         $uploadOk = 0;
     }
 }
+*/
 // Check if file already exists
 if (file_exists($target_file)) {
     echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
-// Check file size  10MB
+// Check file size  30MB
 if ($_FILES["fileToUpload"]["size"] > $PHP_LIMIT_SIZE) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
@@ -42,6 +44,6 @@ if ($uploadOk == 0) {
     }
 }
 
-echo "<br><br>".$target_file;
+echo "<br><br>"."$target_file is in: ".$target_file;
 
 ?>
