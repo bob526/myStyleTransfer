@@ -44,6 +44,6 @@ if ($uploadOk == 0) {
     }
 }
 
-echo "<br><br>"."$target_file is in: ".$target_file;
+echo "<br><br>"."\$target_file is in: ".$target_file;
 
 ?>
