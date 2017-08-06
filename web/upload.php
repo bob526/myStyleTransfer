@@ -50,5 +50,6 @@ if ($uploadOk == 0) {
 //echo "<br><br>".str_replace($target_dir,"",$target_file);
 $videoFileName = str_replace($target_dir,"",$target_file);
 //echo system("./auto_style.sh ".escapeshellarg($videoFileName));
-shell_exec("./auto_style.sh ".$videoFileName);
+echo "<br><br>".$videoFileName."<br><br>";
+echo shell_exec("./auto_style.sh ".$videoFileName);
 ?>
