@@ -63,8 +63,8 @@ if (!$scp_connection->put('style_transfer/mywork/' . $videoFileName,$target_file
     throw new Exception("Failed to send file");
 }
 
-echo "Uploaded to Computing Server\n";
+echo "Uploaded to Computing Server<br>";
 
-$ssh_connection->exec('./style_transfer/mywork/cutvideo.run '. $videoFileName . ' ' . '5000');
-echo "Run cutvideo.run completed!.\n";
+echo $ssh_connection->exec('./style_transfer/mywork/cutvideo.run '. $videoFileName . ' ' . '5000');
+echo "Run cutvideo.run completed!.<br>";
 ?>
