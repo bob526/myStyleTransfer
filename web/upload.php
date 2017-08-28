@@ -65,6 +65,6 @@ if (!$scp_connection->put('style_transfer/mywork/' . $videoFileName,$target_file
 
 echo "Uploaded to Computing Server\n";
 
-$ssh_connection->exec('/style_transfer/mywork/cutvideo.run '. $videoFileName . ' ' . '5000');
+$ssh_connection->exec('./style_transfer/mywork/cutvideo.run '. $videoFileName . ' ' . '5000');
 echo "Run cutvideo.run completed!.\n";
 ?>
