@@ -1,4 +1,8 @@
 <?php
+set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib');
+include('Net/SSH2.php');
+include('Net/SCP.php');
+
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -45,11 +49,18 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-
-//echo "<br><br>"."\$target_file is in: ".$target_file;
-//echo "<br><br>".str_replace($target_dir,"",$target_file);
 $videoFileName = str_replace($target_dir,"",$target_file);
 system("scp -i ~/.ssh/gslave02 -P 2223 uploads/".$videoFileName." nari@140.123.97.173:~/style_transfer/neural-style");
-//echo "<br><br>".$videoFileName."<br><br>";
-//echo shell_exec("./auto_style.sh ".$videoFileName);
+
+$ssh_connection = new Net_SSH2('140.123.97.173',2223);
+if (!$ssh_connection->login('nari','1122abc')) {
+    throw new Exception("Failed to login");
+}
+
+$scp_connection = new Net_SCP($ssh_connection);
+//scp_connection->put('remote file name','local file name',NET_SCP_LOCAL_FILE);
+if (!$scp_connection->put('style_transfer/mywork/' . $videoFileName,$target_file,NET_SCP_LOCAL_FILE)) {
+    throw new Exception("Failed to send file");
+}
+
 ?>
