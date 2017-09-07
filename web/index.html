@@ -16,11 +16,22 @@
 							</tr>
 					</table>
 				</form>
+				<!--Another Part-->
 				</div>
 				<br><br><br><br>
-				<form action="delete.php" method="post" enctype"multipart/form-data">
-					<input type="submit" value="Delete Related Things" name="delbutton">
-				</form>
+				<div style="margin: 10px;">
+					<form action="oneimgup.php" method="post" enctype="multipart/form-data">
+						<table>
+								<tr>
+										<td>Select image to upload:</td>
+										<td><input type="file" name="fileToUpload" id="fileToUpload"></td>
+								</tr>
+								<tr>
+										<td colspan="2" style="text-align:center;"><input type="submit" value="Upload Image" name="submit"></td>
+								</tr>
+						</table>
+					</form>
+					</div>
 		</body>
 </html>
 
