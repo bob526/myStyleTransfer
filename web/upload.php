@@ -50,7 +50,7 @@ if ($uploadOk == 0) {
     }
 }
 $videoFileName = str_replace($target_dir,"",$target_file);
-system("scp -i ~/.ssh/gslave02 -P 2223 uploads/".$videoFileName." nari@140.123.97.173:~/style_transfer/neural-style");
+//system("scp -i ~/.ssh/gslave02 -P 2223 uploads/".$videoFileName." nari@140.123.97.173:~/style_transfer/neural-style");
 
 $ssh_connection = new Net_SSH2('140.123.97.173',2223);
 if (!$ssh_connection->login('nari','1122abc')) {
