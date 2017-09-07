@@ -8,6 +8,11 @@ $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 $PHP_LIMIT_SIZE = 30000000;
+$downloadFolder = 'download/';
+
+exec("rm -f ".$downloadFolder."img*");
+
+
 // Check if image file is a actual image or fake image
 /*
 if(isset($_POST["submit"])) {
@@ -44,9 +49,9 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.<br>";
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        echo "Sorry, there was an error uploading your file.<br>";
     }
 }
 $videoFileName = str_replace($target_dir,"",$target_file);
@@ -63,8 +68,37 @@ if (!$scp_connection->put('style_transfer/mywork/' . $videoFileName,$target_file
     throw new Exception("Failed to send file");
 }
 
+
 echo "Uploaded to Computing Server<br>";
 
-echo $ssh_connection->exec('./style_transfer/mywork/cutvideo.run '. $videoFileName . ' ' . '5000');
+$cutVideoRunPath = "./style_transfer/mywork/";
+$cutVideoProgramName = "cutvideo.run";
+$cutVideoOutputFolder = "output/";
+
+echo $ssh_connection->exec($cutVideoRunPath.$cutVideoProgramName.' '.$cutVideoRunPath.$videoFileName.' '.'5000'.' '.$cutVideoRunPath.$cutVideoOutputFolder);
 echo "Run cutvideo.run completed!.<br>";
+
+$picNum = (int) $ssh_connection->exec('ls '.$cutVideoRunPath.$cutVideoOutputFolder.' '.'-1 | wc -l');
+echo "The picNum = ".$picNum.'<br>';
+
+
+
+for ($i=0;$i<$picNum;$i++) {
+	$theFileName = 'img'.($i+1).'.jpg';
+	if(!$scp_connection->get($cutVideoRunPath.$cutVideoOutputFolder.$theFileName,$downloadFolder.$theFileName)) {
+		throw new Exception("Failed to download file".$theFileName);
+	}
+
+	//Delete the image
+	$ssh_connection->exec("rm ".$cutVideoRunPath.$cutVideoOutputFolder.$theFileName);
+}
+
+//Delete video file
+$ssh_connection->exec("rm ".$cutVideoRunPath.$videoFileName);
+exec("rm -f ".$target_dir.$videoFileName);
+
+echo "<a href=\"download/index.html\">Click Here to Redirect to the New Page</a>"
+
+
+
 ?>
