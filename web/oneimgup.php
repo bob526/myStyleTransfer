@@ -69,7 +69,7 @@ $outputDir = "output/";
 
 $scp_connection = new Net_SCP($ssh_connection);
 //scp_connection->put('remote file name','local file name',NET_SCP_LOCAL_FILE);
-if (!$scp_connection->put($oneimgtranPath.$imageFileName , $target_file,NET_SCP_LOCAL_FILE)) {
+if (!$scp_connection->put($oneimgtranPath.$styleDir.$imageFileName , $target_file,NET_SCP_LOCAL_FILE)) {
     throw new Exception("Failed to send file");
 }
 
