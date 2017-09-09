@@ -1,4 +1,5 @@
 <?php
+/**This page is write for style image uploading**/
 set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib');
 include('Net/SSH2.php');
 include('Net/SCP.php');
@@ -58,6 +59,7 @@ if (!$ssh_connection->login('nari','1122abc')) {
     throw new Exception("Failed to login");
 }
 
+/*
 //Need Change
 $scp_connection = new Net_SCP($ssh_connection);
 //scp_connection->put('remote file name','local file name',NET_SCP_LOCAL_FILE);
@@ -95,7 +97,7 @@ $ssh_connection->exec("rm ".$cutimageRunPath.$imageFileName);
 exec("rm -f ".$target_dir.$imageFileName);
 
 echo "<a href=\"download/index.html\">Click Here to Redirect to the New Page</a>"
-
+*/
 
 
 ?>
