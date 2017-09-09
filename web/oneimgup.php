@@ -59,17 +59,22 @@ if (!$ssh_connection->login('nari','1122abc')) {
     throw new Exception("Failed to login");
 }
 
-/*
+
 //Need Change
+//Const String Declare
+$oneimgtranPath = "./style_transfer/neural-style/oneimgtran/";
+$contentDir = "content/";
+$styleDir = "style/";
+$outputDir = "output/";
+
 $scp_connection = new Net_SCP($ssh_connection);
 //scp_connection->put('remote file name','local file name',NET_SCP_LOCAL_FILE);
-if (!$scp_connection->put('style_transfer/mywork/' . $imageFileName,$target_file,NET_SCP_LOCAL_FILE)) {
+if (!$scp_connection->put($oneimgtranPath.$imageFileName , $target_file,NET_SCP_LOCAL_FILE)) {
     throw new Exception("Failed to send file");
 }
 
-
 echo "Uploaded to Computing Server<br>";
-
+/*
 $cutimageRunPath = "./style_transfer/mywork/";
 $cutimageProgramName = "cutimage.run";
 $cutimageOutputFolder = "output/";
